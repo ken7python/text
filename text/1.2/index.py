@@ -1,9 +1,9 @@
 n = ""
+import subprocess
 import wx
 import os
 import time
 import tkinter, tkinter.filedialog, tkinter.messagebox
-import chardet
 global hifa
 hifa = ""
 app = wx.App(False)
@@ -54,12 +54,26 @@ def fileopen(event):
     iDir = os.path.abspath(os.path.dirname(__file__))
     file = tkinter.filedialog.askopenfilename(filetypes = fTyp,initialdir = iDir)
     faop(file)
-    
+def komando(k):
+    result = subprocess.run([k,str(os.path.split(hifa)[1])], stdout=subprocess.PIPE)
+    global kekka
+    kekka = result.stdout
+    print(result)
+    koma.SetValue(kekka)
+def java(event):
+    if str(os.path.splitext(hifa)[1]) == ".java":
+        os.chdir(str(os.path.dirname(os.path.abspath(hifa))))
+        komando("java")
+    if str(os.path.splitext(hifa)[1]) == ".py":
+        os.chdir(str(os.path.dirname(os.path.abspath(hifa))))
+        komando("python")
     
 text = wx.TextCtrl(panel,pos=(200,100),size=(800,690), style=wx.TE_MULTILINE)
-
+koma = wx.TextCtrl(panel,pos=(0,150),size=(200,400), style=wx.TE_MULTILINE)
+koma.Disable()
 save_button = wx.Button(panel, -1, pos=(10, 10), label='保存')
 ofa_button = wx.Button(panel, -1, pos=(10, 50), label='ファイルを開く')
+zikkou_button = wx.Button(panel, -1, pos=(10, 80), label='実行')
 kou = wx.Button(panel,pos=(100,50),label="最新表示")
 
 font = wx.Font(25, wx.FONTFAMILY_DEFAULT, 
@@ -74,6 +88,7 @@ get_file()
 
 save_button.Bind(wx.EVT_BUTTON, click_save_button)
 kou.Bind(wx.EVT_BUTTON, get_kousin)
+zikkou_button.Bind(wx.EVT_BUTTON, java)
 ofa_button.Bind(wx.EVT_BUTTON, fileopen)
 
 frame.Show()
