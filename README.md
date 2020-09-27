@@ -1,7 +1,5 @@
 # text
 テキストエディタをアップロードします。
 
-ここにアップロードされているファイルをpythonで実行するとテキストエディタが立ち上がります。
-pythonが入ったパソコンで、コマンドプロンプトから、
-「pip install wxpython」と入力してください。
-その処理が終わったら、フォルダの中のindex.pyを実行してください。
+現地点ではwindows版しかありません。
+windows版は[こちら](https://github.com/ken7python/text/releases)です
