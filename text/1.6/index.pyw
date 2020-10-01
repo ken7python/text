@@ -25,15 +25,20 @@ panel = wx.Panel(frame,wx.ID_ANY)
 
 fi = wx.TextCtrl(panel,-1,pos=(200,50),size=(800,50))
 fi.Disable()
-fontfi = wx.Font(15, wx.FONTFAMILY_DEFAULT, 
-               wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+fontfi = wx.Font(15, wx.FONTFAMILY_MODERN,
+               wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL ,False,u'Consolas')
 fi.SetFont(fontfi)
 
 os.chdir(os.getenv("HOMEDRIVE") + os.getenv("HOMEPATH") + "\\Desktop")
+ 
+text = wx.TextCtrl(panel,pos=(200,100),size=(800,690), style=wx.TE_MULTILINE | wx.TE_PROCESS_TAB)
+text.SetTabWidth(4)
 
-text = wx.TextCtrl(panel,pos=(200,100),size=(800,690), style=wx.TE_MULTILINE)
 global koma
 koma = wx.TextCtrl(panel,pos=(0,150),size=(200,400), style=wx.TE_MULTILINE)
+font = wx.Font(10, wx.FONTFAMILY_MODERN,
+               wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL ,False,u'Consolas')
+koma.SetFont(font)
 koma.Disable()
 save_button = wx.Button(panel, -1, pos=(10, 10), label='保存')
 ofa_button = wx.Button(panel, -1, pos=(10, 50), label='ファイルを開く')
@@ -41,8 +46,8 @@ ofo_button = wx.Button(panel, -1, pos=(10, 80), label='フォルダを開く')
 zikkou_button = wx.Button(panel, -1, pos=(10, 110), label='実行')
 kou = wx.Button(panel,pos=(100,50),label="最新表示")
 
-font = wx.Font(25, wx.FONTFAMILY_DEFAULT, 
-               wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+font = wx.Font(20, wx.FONTFAMILY_MODERN,
+               wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL ,False,u'Consolas')
 text.SetFont(font)
 text.SetForegroundColour("#ffffff")
 text.SetBackgroundColour('#333333')
