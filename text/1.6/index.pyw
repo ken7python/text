@@ -2,7 +2,6 @@ n = ""
 import subprocess
 import wx
 import os
-import time
 from tkinter import filedialog
 import tkinter as tk
 import codecs
@@ -32,14 +31,14 @@ fi.SetFont(fontfi)
 os.chdir(os.getenv("HOMEDRIVE") + os.getenv("HOMEPATH") + "\\Desktop")
  
 text = wx.TextCtrl(panel,pos=(200,100),size=(800,690), style=wx.TE_MULTILINE | wx.TE_PROCESS_TAB)
-text.SetTabWidth(4)
+
 
 global koma
 koma = wx.TextCtrl(panel,pos=(0,150),size=(200,400), style=wx.TE_MULTILINE)
 font = wx.Font(10, wx.FONTFAMILY_MODERN,
                wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL ,False,u'Consolas')
 koma.SetFont(font)
-koma.Disable()
+#koma.Disable()
 save_button = wx.Button(panel, -1, pos=(10, 10), label='保存')
 ofa_button = wx.Button(panel, -1, pos=(10, 50), label='ファイルを開く')
 ofo_button = wx.Button(panel, -1, pos=(10, 80), label='フォルダを開く')
@@ -126,6 +125,7 @@ def folder_open(event):
     os.chdir(iDirPath)
     global hifo
     hifo = iDirPath
+    text.Value = ""
     get_file()
 
 def zi(event):
@@ -148,6 +148,27 @@ def zi(event):
         if str(os.path.splitext(hifa)[1]) == ".rb":
             os.chdir(str(os.path.dirname(os.path.abspath(hifa))))
             komando('Ruby')
+        if str(os.path.splitext(hifa)[1]) == ".go":
+            os.chdir(str(os.path.dirname(os.path.abspath(hifa))))
+            result = subprocess.run(['go','run',str(hifa)],stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding='shift_jis', shell=True)
+            if not result.stderr == "":
+                kekka = result.stderr
+                koma.SetValue(kekka)
+            else:
+                kekka = result.stdout
+                koma.SetValue(kekka)
+        if str(os.path.splitext(hifa)[1]) == ".c":
+            os.chdir(str(os.path.dirname(os.path.abspath(hifa))))
+            komando('gcc')
+            result = subprocess.run(['a.exe'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding='shift_jis')
+            if not result.stderr == "":
+                kekka = result.stderr
+                koma.SetValue(kekka)
+            else:
+                kekka = result.stdout
+                koma.SetValue(kekka)
+            
+            
     else:
         wx.MessageBox(u'ファイルを開いていません', u'テキストエディタ', wx.OK)
 
